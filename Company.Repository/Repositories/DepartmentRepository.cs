@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Company.Data.Context;
+using Company.Data.Models;
+using Company.Repository.Interfaces;
+
+namespace Company.Repository.Repositories
+{
+    public class DepartmentRepository :GenericRepository<Department>,IDepartmentRepository
+    {
+
+
+        public DepartmentRepository(CompanyDbContext context) : base(context)
+        {
+           
+        }
+
+       
+
+    }
+}

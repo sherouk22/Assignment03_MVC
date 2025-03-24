@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Company.Data.Models;
@@ -14,10 +15,16 @@ namespace Company.Data.Context
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("server =DESKTOP-DIRMGF2; database =CompanyMVC; trusted_connection = true; TrustServerCertificate = True; ");
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("server =DESKTOP-DIRMGF2; database =CompanyMVC; trusted_connection = true; TrustServerCertificate = True; ");
 
+        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Employee> Employees { get; set; }
