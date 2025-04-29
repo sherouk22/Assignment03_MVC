@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Company.Data.Models;
 
-namespace Company.Service.Interfaces
+namespace Company.Service.Interfaces.Departments
 {
     public interface IDepartmentService
     {
 
-        Department GetById(int id);
+        Department GetById(int? id);
 
         IEnumerable<Department> GetAll();
 
@@ -19,6 +19,6 @@ namespace Company.Service.Interfaces
         void Update(Department department);
 
         void Delete(Department department);
-
+        
     }
 }

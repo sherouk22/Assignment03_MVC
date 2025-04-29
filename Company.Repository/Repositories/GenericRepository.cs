@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Company.Data.Context;
 using Company.Data.Models;
 using Company.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Company.Repository.Repositories
 {
-    public class GenericRepository<T>: IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly CompanyDbContext _context;
 
@@ -19,12 +20,12 @@ namespace Company.Repository.Repositories
         }
 
         public void Add(T entity)
-            =>_context.Set<T>().Add(entity);
-        
+            => _context.Set<T>().Add(entity);
+
+
 
         public void Delete(T entity)
             => _context.Set<T>().Remove(entity);
-
 
         public IEnumerable<T> GetAll()
             => _context.Set<T>().ToList();

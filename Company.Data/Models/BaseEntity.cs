@@ -13,5 +13,7 @@ namespace Company.Data.Models
         public DateTime CreateAt { get; set; } = DateTime.Now;
 
         public bool IsDeleted { get; set; }
+
+
     }
 }

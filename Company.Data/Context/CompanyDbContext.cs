@@ -14,6 +14,7 @@ namespace Company.Data.Context
         public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options)
         {
         }
+        //connection String
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -24,7 +25,11 @@ namespace Company.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+           // modelBuilder.Entity<BaseEntity>().HasQueryFilter(x => !x.IsDeleted);
             base.OnModelCreating(modelBuilder);
+
+           
         }
 
         public DbSet<Employee> Employees { get; set; }
