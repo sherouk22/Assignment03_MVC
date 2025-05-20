@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Company.Data.Models;
 using Company.Repository.Interfaces;
 using Company.Service.Interfaces;
 using Company.Service.Interfaces.Departments;
+using Company.Service.Interfaces.Departments.Dto;
+using Company.Service.Interfaces.Employees.Dto;
 
 namespace Company.Service.Services.Departments
 {
@@ -14,39 +17,53 @@ namespace Company.Service.Services.Departments
     {
         
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DepartmentService(IUnitOfWork unitOfWork)
+        public DepartmentService(IUnitOfWork unitOfWork ,IMapper mapper)
         {
             
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public void Add(Department department)
+
+       
+
+        public void Add(DepartmentDto departmentDto)
         {
-            var mappedDepartment = new Department
-            {
-                Code = department.Code,
-                Name = department.Name,
-                CreateAt = DateTime.Now,
+            //var mappedDepartment = new Department
+            //{
+            //    Code = departmentDto.Code,
+            //    Name = departmentDto.Name,
+            //    CreateAt = DateTime.Now,
 
-            };
+            //};
 
+            //_unitOfWork.DepartmentRepository.Add(mappedDepartment);
+            //_unitOfWork.Complete();
+            var mappedDepartment = _mapper.Map<Department>(departmentDto);
+            mappedDepartment.CreateAt = DateTime.Now;
             _unitOfWork.DepartmentRepository.Add(mappedDepartment);
+
             _unitOfWork.Complete();
         }
 
-        public void Delete(Department department)
+        public void Delete(DepartmentDto departmentDto)
         {
-            _unitOfWork.DepartmentRepository.Delete(department);
+            var mappedDepartment = _mapper.Map<Department>(departmentDto);
+
+            _unitOfWork.DepartmentRepository.Delete(mappedDepartment);
             _unitOfWork.Complete();
+
         }
 
-        public IEnumerable<Department> GetAll()
+        public IEnumerable<DepartmentDto> GetAll()
         {
-            var Department = _unitOfWork.DepartmentRepository.GetAll();    
-            return Department;
+            var departments = _unitOfWork.DepartmentRepository.GetAll();
+            IEnumerable<DepartmentDto> mappedDepartments = _mapper.Map<IEnumerable<DepartmentDto>>(departments);
+            return mappedDepartments;
         }
 
-        public Department GetById(int? id)
+        public DepartmentDto GetById(int? id)
         {
             if (id is null)
                 return null;
@@ -55,27 +72,30 @@ namespace Company.Service.Services.Departments
 
             if( department is null )
                 return null;
-            return department;
+
+            var mappedDepartments = _mapper.Map<DepartmentDto>(department);
+            return mappedDepartments;
+           
         }
 
-        public void Update(Department department)
+        public void Update(DepartmentDto department)
         {
 
-            _unitOfWork.DepartmentRepository.Update(department);
+            //_unitOfWork.DepartmentRepository.Update(department);
 
-            //var dept = GetById(department.Id);
+            ////var dept = GetById(department.Id);
 
-            //if (dept.Name != department.Name)
-            //{
-            //    if (GetAll().Any(x => x.Name == department.Name))
-            //        throw new Exception("DuplicationDepartmentName");
-            //}
+            ////if (dept.Name != department.Name)
+            ////{
+            ////    if (GetAll().Any(x => x.Name == department.Name))
+            ////        throw new Exception("DuplicationDepartmentName");
+            ////}
 
-            //dept.Name = department.Name;
-            //dept.Code = department.Code;
+            ////dept.Name = department.Name;
+            ////dept.Code = department.Code;
 
 
-            _unitOfWork.Complete();
+            //_unitOfWork.Complete();
         }
     }
 }

@@ -1,7 +1,18 @@
-﻿namespace Company.Data
+﻿
+namespace Company.Data
 {
     public class Class1
     {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
