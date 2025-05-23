@@ -14,5 +14,7 @@ namespace Company.Data.Models
         public string LastName { get; set; }
 
         public bool IsActive { get; set; }
+
+        
     }
 }
